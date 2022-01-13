@@ -1,0 +1,21 @@
+syntax = "proto3"; 
+option go_package = "./server";
+package server; 
+
+message Event {
+	string payload = 1; 
+}
+
+service EventService {
+	// Ack method  
+	rpc Ack (Event) returns (Event){}
+
+	// Server side streaming 
+	rpc Subscribe (Event) returns (stream Event){}
+
+	// Client side streaming 
+	rpc Publish (stream Event) returns (Event){}
+
+	// Bidirectional streaming 
+	rpc Route (stream Event) returns (stream Event){}
+}
